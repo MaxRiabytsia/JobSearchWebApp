@@ -1,0 +1,223 @@
+body {
+    background: #fafafa;
+    color: #333333;
+    margin-top: 5rem;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #444444;
+}
+
+ul {
+    margin: 0;
+}
+
+a, a:hover {
+    color: #333333;
+    text-decoration: none;
+}
+
+#icon {
+    transition: 0s width;
+    width: 55px;
+    height: auto;
+}
+
+#job {
+    transition: 0s font-size;
+    font-size: 110%;
+}
+
+#detail_page_link:hover #icon {
+    width: 62px;
+    height: auto;
+    transition-delay: 0.2s;
+}
+
+#detail_page_link:hover #job_title {
+    font-size: 210%;
+    transition-delay: 0.2s;
+}
+
+#text_link:hover {
+    font-size: 110%;
+}
+
+#job_title:hover {
+    font-size: 175%;
+    transition-delay: 0.2s;
+}
+
+.bg-steel {
+    background-color: #718aff;
+}
+
+#home {
+    color: #333333;
+}
+
+.big_btn {
+    font-size: 18pt;
+    padding: 10px;
+    border-radius: 8px;
+    color: #718aff;
+    border: 2px solid #718aff;
+    background-color: #ffffff;
+    font-weight: bold;
+}
+
+.big_btn:hover {
+    color: #ffffff;
+    border: 2px solid #ffffff;
+    background-color: #718aff;
+}
+
+.main_btn {
+    border-radius: 8px;
+    color: #718aff;
+    border: 2px solid #718aff;
+    background-color: #ffffff;
+    font-size: 12pt;
+    font-weight: bold;
+}
+
+.main_btn:hover {
+    color: #ffffff;
+    border: 2px solid #ffffff;
+    background-color: #718aff;
+}
+
+.site-header .navbar-nav .nav-link {
+    color: #333333;
+}
+
+.site-header .navbar-nav .nav-link:hover {
+    color: #ffffff;
+}
+
+.site-header .navbar-nav .nav-link.active {
+    font-weight: 500;
+}
+
+.content-section {
+    background: #ffffff;
+    padding: 10px 20px;
+    border: 1px solid #dddddd;
+    border-radius: 3px;
+    margin-bottom: 20px;
+}
+
+.article-title {
+    color: #444444;
+}
+
+a.article-title:hover {
+    color: #718aff;
+    text-decoration: none;
+}
+
+.article-content {
+    white-space: pre-line;
+}
+
+.article-img {
+    height: 65px;
+    width: 65px;
+    margin-right: 16px;
+}
+
+.article-metadata {
+    padding-bottom: 1px;
+    margin-bottom: 4px;
+    border-bottom: 1px solid #e3e3e3
+}
+
+.article-metadata a:hover {
+    color: #333;
+    text-decoration: none;
+}
+
+.article-svg {
+    width: 25px;
+    height: 25px;
+    vertical-align: middle;
+}
+
+.account-img {
+    height: 125px;
+    width: 125px;
+    margin-right: 20px;
+    margin-bottom: 16px;
+}
+
+.account-heading {
+    font-size: 2.5rem;
+}
+
+.button-tooltip-container {
+    position: fixed;
+    margin-left: 47%;
+    display: flex;
+    align-items: center;
+}
+
+#custom-tooltip {
+    display: none;
+    margin-bottom: 10px;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 14pt;
+}
+
+.autocomplete {
+    /*the container must be positioned relative:*/
+    position: relative;
+    display: inline-block;
+}
+
+input {
+    border: 1px solid transparent;
+    background-color: #f1f1f1;
+    padding: 10px;
+    font-size: 16px;
+}
+
+input[type=text] {
+    background-color: #f1f1f1;
+    width: 100%;
+}
+
+input[type=submit] {
+    background-color: #718aff;
+    color: #fff;
+}
+
+.autocomplete-items {
+    position: absolute;
+    border: 1px solid #d4d4d4;
+    border-bottom: none;
+    border-top: none;
+    z-index: 99;
+    /*position the autocomplete items to be the same width as the container:*/
+    top: 100%;
+    left: 0;
+    right: 0;
+}
+
+.autocomplete-items div {
+    padding: 10px;
+    cursor: pointer;
+    background-color: #fff;
+    border-bottom: 1px solid #d4d4d4;
+}
+
+.autocomplete-items div:hover {
+    /*when hovering an item:*/
+    background-color: #e9e9e9;
+}
+
+.autocomplete-active {
+    /*when navigating through the items using the arrow keys:*/
+    background-color: #718aff !important;
+    color: #ffffff;
+}

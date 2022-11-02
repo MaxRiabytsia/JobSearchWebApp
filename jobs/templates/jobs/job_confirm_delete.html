@@ -1,0 +1,17 @@
+{% extends "jobs/base.html" %}
+{% block content %}
+    <div class="content-section">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Delete Job</legend>
+                <h2>Are you sure you want to delete the "{{ job.title }}" job?</h2>
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-danger mb-2" type="submit">Yes, Delete</button>
+                <a class="main_btn" href="{% url 'job-detail' object.id %}" style="padding: 8px;">No, Go Back to
+                    the Job</a>
+            </div>
+        </form>
+    </div>
+{% endblock content %}

@@ -1,0 +1,61 @@
+{% extends "jobs/base.html" %}
+{% load static %}
+{% block content %}
+    <div class="container" style="font-size: 18pt">
+        <div class="row">
+            <div class="col-6 text-start">
+                <form class="form-inline" autocomplete="off" method="GET"
+                      action="{% url 'job-search' %}">
+                    <label class="autocomplete" style="width:300px;">
+                        <input onkeydown="if (event.which === 13 || event.keyCode === 13) { submit(); }"
+                               class="form-control" name="search" type="search" placeholder="Search" id="myInput">
+                    </label>
+                    <button class="big_btn p-0 px-1 pb-1" type="submit">Search</button>
+                </form>
+            </div>
+            <div class="col-6 text-end">
+                {% if user.role == 2 %}
+                    <a class="big_btn" href="{% url 'job-create' %}">
+                        <b>Add</b>
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <div class="container" id="container">
+        {% for job in jobs %}
+            <div class="row">
+                <div class="container">
+                    <div class="container media content-section">
+                        <a class="row align-items-center" id="job"
+                           href="{% url 'job-detail' job.pk %}">
+                            <div class="row">
+                                <h4 id="job_title">{{ job.title }}</h4>
+                            </div>
+                            <div class="row">
+                                <div class="col-10">
+                                    {{ job.company_name }}
+                                </div>
+                                <div class="col text-center">
+                                    <small class="text-muted">{{ job.date_added.date }}</small>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <script src="../../static/autocompleteSearchBar.js"></script>
+    <script>
+        const service_names = [
+            {% for service_name in service_names %}
+                "{{service_name}}",
+            {% endfor %}
+        ];
+        autocomplete(document.getElementById("myInput"), service_names);
+    </script>
+{% endblock content %}

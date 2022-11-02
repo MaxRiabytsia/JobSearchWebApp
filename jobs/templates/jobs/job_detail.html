@@ -1,0 +1,39 @@
+{% extends "jobs/base.html" %}
+{% load static %}
+{% block content %}
+    <article class="media content-section">
+        <div class="container">
+            <div class="media content-section">
+                <div class="row align-items-center mb-2">
+                    <small class="text-muted">{{ job.date_added.date }}</small>
+                </div>
+                <div class="row">
+                    <div class="col-10">
+                        <h2 class="article-title mt-1" id="service_name">{{ job.title }}</h2>
+                    </div>
+                    <div class="col">
+                        {% if job.creator == user %}
+                            <a class="main_btn" href="{% url 'job-update' object.id %}"
+                               style="padding: 4px; margin-right: 5px;">
+                                Update
+                            </a>
+                            <a class="btn btn-danger btn-sm ml-2 mb-1" href="{% url 'job-delete' object.id %}">
+                                Delete
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-between align-items-center mb-4"
+                     id="password_row">
+                    <div class="col-10">
+                        <b style="font-size: 16pt; margin-bottom: 20px;">{{ job.company_name }}</b><br>
+                        <b>Contact information:</b> {{ job.contact_info }}
+                    </div>
+                </div>
+            </div>
+            <div class="row media content-section">
+                {{ job.description|linebreaks }}
+            </div>
+        </div>
+    </article>
+{% endblock content %}
