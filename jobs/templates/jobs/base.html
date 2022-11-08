@@ -29,6 +29,8 @@
                     {% if user.is_authenticated %}
                         {% if user.role == 2 %}
                             <a class="nav-item nav-link" href="{% url 'user-jobs' user.pk %}">My Jobs</a>
+                        {% elif user.is_superuser %}
+                            <a class="nav-item nav-link" href="{% url 'admin:index' %}">Admin Page</a>
                         {% endif %}
                         <a class="nav-item nav-link" href="{% url 'profile' %}">{{ user.username }}</a>
                     {% else %}
