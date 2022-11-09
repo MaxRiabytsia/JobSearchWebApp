@@ -10,16 +10,15 @@ class SearchView(ListView):
     model = Job
     template_name = 'jobs/home.html'
     context_object_name = 'jobs'
-    ordering = ['date_added']
 
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
         query = self.request.GET.get('search').lower()
         if query:
-            jobs = Job.objects.all().order_by('date_added')
+            jobs = Job.objects.all().order_by('-date_added')
             search_result = []
             for job in jobs:
-                if query in job.title.lower():
+                if query in job.title.lower() or query in job.company_name.lower() or query in job.description.lower():
                     search_result.append(job)
         else:
             search_result = []
@@ -32,13 +31,12 @@ class EmployerJobsView(ListView):
     model = Job
     template_name = 'jobs/home.html'
     context_object_name = 'jobs'
-    ordering = ['date_added']
 
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
         user = self.request.user
         if user:
-            search_result = Job.objects.filter(creator=user).order_by('date_added')
+            search_result = Job.objects.filter(creator=user).order_by('-date_added')
         else:
             search_result = []
 
@@ -53,7 +51,7 @@ class UserJobsListView(ListView):
 
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
-        passwords = sorted(list(Job.objects.all()), key=lambda x: x.date_added)
+        passwords = Job.objects.all().order_by("-date_added")
 
         context_data['jobs'] = passwords
         return context_data
