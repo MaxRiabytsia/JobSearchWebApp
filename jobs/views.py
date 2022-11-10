@@ -6,11 +6,21 @@ from .models import Job
 from .forms import JobForm
 
 
-class SearchView(ListView):
+class JobsListView(ListView):
     model = Job
     template_name = 'jobs/home.html'
     context_object_name = 'jobs'
 
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        jobs = Job.objects.all().order_by("-date_added")
+
+        context_data['jobs'] = jobs
+        context_data['number_of_jobs'] = len(jobs)
+        return context_data
+
+
+class SearchView(JobsListView):
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
         query = self.request.GET.get('search').lower()
@@ -24,14 +34,11 @@ class SearchView(ListView):
             search_result = []
 
         context_data['jobs'] = search_result
+        context_data['number_of_jobs'] = len(search_result)
         return context_data
 
 
-class EmployerJobsView(ListView):
-    model = Job
-    template_name = 'jobs/home.html'
-    context_object_name = 'jobs'
-
+class EmployerJobsView(JobsListView):
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
         user = self.request.user
@@ -41,19 +48,7 @@ class EmployerJobsView(ListView):
             search_result = []
 
         context_data['jobs'] = search_result
-        return context_data
-
-
-class UserJobsListView(ListView):
-    model = Job
-    template_name = 'jobs/home.html'
-    context_object_name = 'jobs'
-
-    def get_context_data(self, **kwargs):
-        context_data = super().get_context_data(**kwargs)
-        passwords = Job.objects.all().order_by("-date_added")
-
-        context_data['jobs'] = passwords
+        context_data['number_of_jobs'] = len(search_result)
         return context_data
 
 

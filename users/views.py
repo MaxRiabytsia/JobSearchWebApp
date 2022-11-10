@@ -9,6 +9,24 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import DeleteView
 
 
+@login_required
+def profile(request):
+    if request.method == 'POST':
+        user_update_form = UserUpdateForm(request.POST, instance=request.user)
+        if user_update_form.is_valid():
+            user_update_form.save()
+            messages.success(request, f'Profile info updated!')
+            return redirect('profile')
+    else:
+        user_update_form = UserUpdateForm(instance=request.user)
+
+    context = {
+        'user_update_form': user_update_form
+    }
+
+    return render(request, 'users/profile.html', context)
+
+
 class AccountDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = User
 
@@ -39,20 +57,3 @@ def register(request):
         form = UserRegisterForm()
     return render(request, 'users/register.html', {'form': form})
 
-
-@login_required
-def profile(request):
-    if request.method == 'POST':
-        user_update_form = UserUpdateForm(request.POST, instance=request.user)
-        if user_update_form.is_valid():
-            user_update_form.save()
-            messages.success(request, f'Profile info updated!')
-            return redirect('profile')
-    else:
-        user_update_form = UserUpdateForm(instance=request.user)
-
-    context = {
-        'user_update_form': user_update_form
-    }
-
-    return render(request, 'users/profile.html', context)
