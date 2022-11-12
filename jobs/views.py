@@ -1,6 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.db import transaction, IntegrityError
 
 from .models import Job
 from .forms import JobForm
@@ -60,6 +61,13 @@ class JobCreateView(LoginRequiredMixin, CreateView):
     model = Job
     form_class = JobForm
 
+    def post(self, request, *args, **kwargs):
+        try:
+            with transaction.atomic():
+                super().post(request, *args, **kwargs)
+        except IntegrityError:
+            print("Integrity error in JobCreateView")
+
     def form_valid(self, form):
         form.instance.creator = self.request.user
         return super().form_valid(form)
@@ -68,6 +76,13 @@ class JobCreateView(LoginRequiredMixin, CreateView):
 class JobUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Job
     fields = ['title', 'company_name', 'location', 'contact_info', 'description']
+
+    def post(self, request, *args, **kwargs):
+        try:
+            with transaction.atomic():
+                super().post(request, *args, **kwargs)
+        except IntegrityError:
+            print("Integrity error in JobUpdateView")
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -80,6 +95,13 @@ class JobUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
 class JobDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Job
+
+    def post(self, request, *args, **kwargs):
+        try:
+            with transaction.atomic():
+                super().post(request, *args, **kwargs)
+        except IntegrityError:
+            print("Integrity error in JobDeleteView")
 
     def test_func(self):
         job = self.get_object()

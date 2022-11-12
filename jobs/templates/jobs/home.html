@@ -52,11 +52,11 @@
 
     <script src="../../static/autocompleteSearchBar.js"></script>
     <script>
-        const service_names = [
-            {% for service_name in service_names %}
-                "{{service_name}}",
+        const jobs = [
+            {% for job in jobs %}
+                "{{job}}",
             {% endfor %}
         ];
-        autocomplete(document.getElementById("myInput"), service_names);
+        autocomplete(document.getElementById("myInput"), jobs);
     </script>
 {% endblock content %}
