@@ -64,7 +64,7 @@ class JobCreateView(LoginRequiredMixin, CreateView):
     def post(self, request, *args, **kwargs):
         try:
             with transaction.atomic():
-                super().post(request, *args, **kwargs)
+                return super().post(request, *args, **kwargs)
         except IntegrityError:
             print("Integrity error in JobCreateView")
 
@@ -80,7 +80,7 @@ class JobUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     def post(self, request, *args, **kwargs):
         try:
             with transaction.atomic():
-                super().post(request, *args, **kwargs)
+                return super().post(request, *args, **kwargs)
         except IntegrityError:
             print("Integrity error in JobUpdateView")
 
@@ -99,7 +99,7 @@ class JobDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def post(self, request, *args, **kwargs):
         try:
             with transaction.atomic():
-                super().post(request, *args, **kwargs)
+                return super().post(request, *args, **kwargs)
         except IntegrityError:
             print("Integrity error in JobDeleteView")
 
